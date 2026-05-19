@@ -1,0 +1,60 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten är redan konfigurerad",
+            "reconfigure_successful": "Omkonfigureringen lyckades!"
+        },
+        "error": {
+            "cannot_connect": "Kunde ej ansluta",
+            "invalid_auth": "Ogiltlig PIN",
+            "unknown": "Oväntat fel"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Värd",
+                    "pin": "PIN-kod"
+                }
+            },
+            "reconfigure": {
+                "title": "Omkonfigurera Amp Guard",
+                "description": "Uppdatera dina Amp Guard inställningar.",
+                "data": {
+                    "host": "Värd",
+                    "pin": "PIN-kod"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "scan_interval": "Uppdateringsinterval (sekunder)"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "online": {"name": "Uppkoppling"},
+            "voltage_l1_ok": {"name": "Spänning L1"},
+            "voltage_l2_ok": {"name": "Spänning L2"},
+            "voltage_l3_ok": {"name": "Spänning L3"}
+        },
+        "sensor": {
+            "current_l1": { "name": "Ström L1" },
+            "current_l2": { "name": "Ström L2" },
+            "current_l3": { "name": "Ström L3" },
+            "voltage_l1": { "name": "Spänning L1" },
+            "voltage_l2": { "name": "Spänning L2" },
+            "voltage_l3": { "name": "Spänning L3" },
+            "power_l1": { "name": "Effekt L1" },
+            "power_l2": { "name": "Effekt L2" },
+            "power_l3": { "name": "Effekt L3" },
+            "angle_l1": { "name": "Vinkel L1" },
+            "angle_l2": { "name": "Vinkel L2" },
+            "angle_l3": { "name": "Vinkel L3" }
+        }
+    }
+}

@@ -1,0 +1,17 @@
+{
+  "domain": "ampguard",
+  "name": "Amp Guard",
+  "codeowners": [
+    "@oven-lab"
+  ],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/oven-lab/ha-ampguard",
+  "issue_tracker": "https://github.com/oven-lab/ha-ampguard/issues",
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "requirements": [
+    "websockets>=10.0"
+  ],
+  "version": "1.0.0"
+}

@@ -1,0 +1,60 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Device is already configured",
+            "reconfigure_successful": "Reconfigure successful!"
+        },
+        "error": {
+            "cannot_connect": "Failed to connect",
+            "invalid_auth": "Invalid authentication",
+            "unknown": "Unexpected error"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "pin": "PIN code"
+                }
+            },
+            "reconfigure": {
+                "title": "Reconfigure Amp Guard",
+                "description": "Update your Amp Guard settings.",
+                "data": {
+                    "host": "Host",
+                    "pin": "PIN code"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "scan_interval": "Scan interval (seconds)"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "online": {"name": "Connection"},
+            "voltage_l1_ok": {"name": "Voltage L1"},
+            "voltage_l2_ok": {"name": "Voltage L2"},
+            "voltage_l3_ok": {"name": "Voltage L3"}
+        },
+        "sensor": {
+            "current_l1": { "name": "Current L1" },
+            "current_l2": { "name": "Current L2" },
+            "current_l3": { "name": "Current L3" },
+            "voltage_l1": { "name": "Voltage L1" },
+            "voltage_l2": { "name": "Voltage L2" },
+            "voltage_l3": { "name": "Voltage L3" },
+            "power_l1": { "name": "Power L1" },
+            "power_l2": { "name": "Power L2" },
+            "power_l3": { "name": "Power L3" },
+            "angle_l1": { "name": "Angle L1" },
+            "angle_l2": { "name": "Angle L2" },
+            "angle_l3": { "name": "Angle L3" }
+        }
+    }
+}
