@@ -37,7 +37,7 @@ class AmpGuardDataCoordinator(DataUpdateCoordinator):
         except InvalidAuth as err:
             raise UpdateFailed("Invalid PIN") from err
         except ValueError as err:
-            _LOGGER("Got invalid response from ampguard.")
+            _LOGGER.exception("Got invalid response from AmpGuard.")
             await self.client.close()
             raise UpdateFailed("Invalid response from AmpGuard.") from err
         except Exception as err:

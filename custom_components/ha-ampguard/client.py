@@ -32,7 +32,7 @@ class AmpGuardClient:
         self._ws = None
 
     async def connect(self):
-        """Connect + full authentication."""
+        """Connect + authentication."""
 
         if self._ws:
             await self._ws.close()
@@ -70,28 +70,41 @@ class AmpGuardClient:
 
     async def fetch(self) -> AmpGuardData:
         """Fetch latest data. Reconnects automatically if needed."""
-        if not self._ws:
-            await self.connect()
+        max_retries = 2
 
-        try:
-            await self._ws.send("?,1")
-            resp = await self._ws.recv()
-        except ConnectionClosedError as err:
-            _LOGGER.error("Connection to %s closed", self._url)
-            await self.close()
-            raise CannotConnect("Connection closed") from err
+        for attempt in range(max_retries + 1):
+            if not self._ws:
+                await self.connect()
 
-        if not resp.startswith("1,"):
-            raise ValueError("Invalid data response")
+            try:
+                await self._ws.send("?,1")
+                resp = await self._ws.recv()
+            except ConnectionClosedError as err:
+                _LOGGER.warning(
+                    "Connection to %s was closed (attempt %d/%d)",
+                    self._url,
+                    attempt + 1,
+                    max_retries + 1,
+                )
+                await self.close()
+                if attempt == max_retries:
+                    _LOGGER.error("Max retries reached. Could not connect to %s", self._url)
+                    raise CannotConnect("Max retries reached") from err
+                continue
 
-        # Parse 12 comma-separated floats
-        values = [float(x) for x in resp[2:].split(",")]
-        return AmpGuardData(
-            currents=tuple(values[0:3]),
-            voltages=tuple(values[3:6]),
-            powers=tuple(values[6:9]),
-            angles=tuple(values[9:12]),
-        )
+            if not resp.startswith("1,"):
+                raise ValueError("Invalid data response")
+
+            # Parse 12 comma-separated floats
+            values = [float(x) for x in resp[2:].split(",")]
+            return AmpGuardData(
+                currents=tuple(values[0:3]),
+                voltages=tuple(values[3:6]),
+                powers=tuple(values[6:9]),
+                angles=tuple(values[9:12]),
+            )
+        
+        raise RuntimeError("Unreachable: fetch should have returned or raised")
 
     async def close(self):
         """Close the websocket."""

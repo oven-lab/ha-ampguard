@@ -90,14 +90,15 @@ class AmpGuardBinarySensor(AmpGuardEntity, BinarySensorEntity):
     @property
     def is_on(self) -> bool | None:
         """Return current value."""
-        if self.coordinator.data is None:
-            return None
 
         if self.entity_description.data_type == "connectivity":
+            # return False if the last update was unsucessful, True if it was successful, and ignore if there is no data yet.
             return (
-                self.coordinator.last_update_success
-                and self.coordinator.data is not None
+                bool(self.coordinator.last_update_success)
             )
+        
+        if self.coordinator.data is None:
+            return None
 
         if self.entity_description.data_type == "voltages":
             values = getattr(self.coordinator.data, self.entity_description.data_type)
